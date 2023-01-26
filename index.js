@@ -1,8 +1,9 @@
-const Employee = require('./lib/Employee');
+const makePage = require('./util/generateHtml');
 const inquirer = require('inquirer');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
+const fs = require('fs');
 
 let employeeArray = [];
 
@@ -137,8 +138,14 @@ Please select another option
                 break;
             
             case 3:
-            console.table(employeeArray);    
-            console.log("Thank you for building a team - view your page at...")
+                const html = makePage(employeeArray)
+                fs.writeFile('./dist/index.html', html, (error) => {
+                    if(error){
+                        console.log("Error writing file!");
+                    }
+                });
+                console.table(employeeArray);    
+                console.log("Thank you for building a team - view your page at...")
                 break;
 
             default:
