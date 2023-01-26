@@ -1,8 +1,14 @@
 const Employee = require('./lib/Employee');
 const inquirer = require('inquirer');
 const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
 
 let employeeArray = [];
+
+const addEmployee = (employee) => {
+    employeeArray.push(employee);
+}
 
 const runIt = () => {
     
@@ -34,20 +40,23 @@ const runIt = () => {
     ])
     .then((answers) => {
         const newManager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
-        console.log(newManager);
+        addEmployee(newManager);
+        console.log(`Please choose an option: 
+        `)
         buildMenu();
     })
 }
 
 const buildMenu = () => {
+    
     inquirer.prompt([
         {
         type: 'list',
-        message: 'Choose an option: ',
+        message: 'I\'d like to: ',
         choices: [
             {name: "Add an Engineer", value: 1},
             {name: "Add an Intern", value: 2},
-            {name: "Finish building your team!", value: 3},
+            {name: "Finish building my team!", value: 3},
         ],
         name: 'menuChoice'
         }
@@ -56,12 +65,80 @@ const buildMenu = () => {
         switch(answer.menuChoice){
 
             case 1:
+                inquirer.prompt([
+                    {
+                        type: 'input',
+                        message: 'Enter the engineer\'s name: ',
+                        name: 'name'
+                    },
+                    {
+                        type: 'input',
+                        message: 'Enter the engineer\'s employee ID: ',
+                        name: 'id'
+                    },
+                    {
+                        type: 'input',
+                        message: 'Enter the engineer\'s email address: ',
+                        name: 'email'
+                    },
+                    {
+                        type: 'input',
+                        message: 'Enter the engineer\'s github username: ',
+                        name: 'github'
+                    }
+                ])
+                .then((answers) => {
+                    const newEng = new Engineer(answers.name, answers.id, answers.email, answers.github);                    
+                    addEmployee(newEng);
+                    console.log(`
+Engineer Added!
+----------------------------
+Please select another option
+                    
+                    `)
+                    buildMenu();
+                })
                 break;
             
             case 2:
+                inquirer.prompt([
+                    {
+                        type: 'input',
+                        message: 'Enter the intern\'s name: ',
+                        name: 'name'
+                    },
+                    {
+                        type: 'input',
+                        message: 'Enter the intern\'s employee ID: ',
+                        name: 'id'
+                    },
+                    {
+                        type: 'input',
+                        message: 'Enter the intern\'s email address: ',
+                        name: 'email'
+                    },
+                    {
+                        type: 'input',
+                        message: 'Enter the intern\'s school: ',
+                        name: 'school'
+                    }
+                ])
+                .then((answers) => {
+                    const newIntern = new Intern(answers.name, answers.id, answers.email, answers.school);                    
+                    addEmployee(newIntern);
+                    console.log(`
+Intern Added!
+----------------------------
+Please select another option
+                    
+                    `)
+                    buildMenu();
+                })
                 break;
             
             case 3:
+            console.table(employeeArray);    
+            console.log("Thank you for building a team - view your page at...")
                 break;
 
             default:
