@@ -1,5 +1,7 @@
 :root {
-    --slate-gray: #323232;
+    --slate-gray: rgb(50, 50, 50);
+    --aquaman: rgb(0, 157, 147);
+    --beige: rgb(245, 245, 220);
 }
 
 *, *::before, *::after {
@@ -18,16 +20,99 @@ header {
     height: 50px;
 }
 
-html{
-    background-color: rgb(0, 157, 147);
-}
-
 body {
     height: 100vh;
     background-color: rgb(237, 242, 244);
+    counter-reset: employees;
+}
+
+a{
+    color:rgb(0, 157, 147);
+    font-weight: bold;
+}
+
+.jumbotron{
+    border-radius: 0px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 3px 3px 8px 5px gray;
+}
+
+.team-area{
+    flex-wrap: wrap;
 }
 
 .team-heading{
     background-color: var(--slate-gray);
-    color: rgb(0, 157, 147);
+    color: var(--aquaman);
+}
+
+.card{
+    min-width: 200px;
+    margin: 10px;
+    border: 0px;
+    box-shadow: 3px 3px 6px 3px gray;
+}
+
+.card-header{
+    height: 125px;
+    background-color: var(--aquaman);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-header * {
+    margin: 0;
+}
+
+.card-header::after{
+    width: 27px;
+    height: 36px;
+    background-color: rgb(245, 245, 220);
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+    counter-increment: employees;
+    content: counter(employees);
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    border-radius: 50%;
+    box-shadow: 2px 5px 4px rgba(0, 0, 0, .5);
+}
+
+.card-header h2 {
+    color: var(--beige);
+    text-shadow: 1px 1px black;
+}
+
+.card-header h3 {
+    justify-self: flex-end;
+    background-color: var(--beige);
+    padding: 5px 20px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 2px 5px 4px rgba(0, 0, 0, .5);
+}
+
+.list-group{
+    border-radius: .25rem;
+    padding: 5px;
+    box-shadow: inset 2px 2px 4px gray,
+                inset -2px -2px 4px gray;;
+}
+
+.list-group-item {
+    border: none;
+}
+
+.list-group li:nth-child(2){
+    background-color: rgb(227, 227, 227);
 }
