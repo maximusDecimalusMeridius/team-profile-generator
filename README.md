@@ -18,7 +18,7 @@ To install, clone files from the root github directory.  Initialize `npm` then r
 
 ## Usage
 
-To use, ensure you have node installed and type `node index.js`.  Follow on-screen instructions to define your team and receive a custom generated html file!
+To use, ensure you have node installed and type `node index.js` in the terminal.  Follow on-screen instructions to define your team and receive a custom generated html file!
 
 ### Sample Console Output
 ![Sample console output](./assets/console-output.png)
