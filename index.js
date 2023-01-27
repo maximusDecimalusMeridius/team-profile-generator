@@ -164,7 +164,7 @@ Please select another option
                 });
                 //confirm data entered via the console in console.table
                 console.table(employeeArray);    
-                console.log("Thank you for building a team - view your page at...")
+                console.log("Thank you for building a team - view your page in ./dlist/index.html")
                 break;
             //#endregion
             default:
