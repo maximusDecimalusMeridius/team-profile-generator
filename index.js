@@ -1,22 +1,32 @@
-const makePage = require('./util/generateHtml');
+//Import node packages
 const inquirer = require('inquirer');
+const fs = require('fs');
+
+//Import utility function to create and return HTML output string
+const makePage = require('./util/generateHtml');
+
+//Import required class constructors
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
-const fs = require('fs');
 
+//Initialize an empty array
 let employeeArray = [];
 
+//Add the employee passed in to the employeeArray
 const addEmployee = (employee) => {
     employeeArray.push(employee);
 }
 
+//Main program block to run index.js
 const runIt = () => {
     
+    //One-time welcome message
     console.log(`Welcome to World of Employee Logs!
     
     `)
     
+    //Get manager info before building team
     inquirer.prompt([
         {
             type: 'input',
@@ -39,6 +49,8 @@ const runIt = () => {
             name: 'officeNumber'
         }
     ])
+    //then create a new Manager object with the input responses, adding it to the employee array
+    //prompt user to choose an option and call buildMenu() to build the team
     .then((answers) => {
         const newManager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
         addEmployee(newManager);
@@ -48,6 +60,9 @@ const runIt = () => {
     })
 }
 
+//Recursive function when user chooses to add an engineer or intern
+//Offers three options - Add an engineer, Add an intern, or Finish building the team
+//If no users are entered, just the manager's profile is output
 const buildMenu = () => {
     
     inquirer.prompt([
@@ -65,6 +80,7 @@ const buildMenu = () => {
     .then((answer) => {
         switch(answer.menuChoice){
 
+            //#region 1st case - Add an engineer prompt tree, then create a new Engineer, push to employeeArray, call buildMenu()
             case 1:
                 inquirer.prompt([
                     {
@@ -100,7 +116,8 @@ Please select another option
                     buildMenu();
                 })
                 break;
-            
+            //#endregion
+            //#region 2nd case - Add an intern prompt tree, then create a new Intern, push to employeeArray, call buildMenu()
             case 2:
                 inquirer.prompt([
                     {
@@ -136,7 +153,8 @@ Please select another option
                     buildMenu();
                 })
                 break;
-            
+            //#endregion
+            //#region 3rd case - Set html to the string returned by makePage when passing employeeArray, then write to ./dist/index.html
             case 3:
                 const html = makePage(employeeArray)
                 fs.writeFile('./dist/index.html', html, (error) => {
@@ -144,10 +162,11 @@ Please select another option
                         console.log("Error writing file!");
                     }
                 });
+                //confirm data entered via the console in console.table
                 console.table(employeeArray);    
                 console.log("Thank you for building a team - view your page at...")
                 break;
-
+            //#endregion
             default:
                 console.log("Something went wrong!");
                 break;
@@ -155,4 +174,5 @@ Please select another option
     })
 }
 
+//Calls program the first time
 runIt();
